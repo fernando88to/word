@@ -1,8 +1,6 @@
 package com.fernando.domain
 
-class EquipeCorreicional {
-
+class EquipeCorreicao {
     String nome
     String funcao
-
 }
