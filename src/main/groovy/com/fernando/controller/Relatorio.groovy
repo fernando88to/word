@@ -118,11 +118,12 @@ class Relatorio {
 
     private PaymentHackData getData(){
         PaymentHackData data = new PaymentHackData();
+        data.comarca = "WANDERLÂNDIA"
         List<Goods> goods = new ArrayList<>();
         Goods good = new Goods();
         good.setCount(4);
-        good.setName("墙纸");
-        good.setDesc("书房卧室");
+        good.setNome("Wagner José dos Santos");
+        good.setFuncao("Coordenador dos Serviços Notariais e de Registro");
         good.setDiscount(1500);
         good.setPrice(400);
         good.setTax(new Random().nextInt(10) + 20);

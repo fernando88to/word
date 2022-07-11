@@ -6,6 +6,7 @@ import java.util.List;
 import com.deepoove.poi.data.PictureRenderData;
 
 public class PaymentHackData {
+    private String comarca;
     private String subtotal;
     private String tax;
     private String transform;
@@ -98,6 +99,13 @@ public class PaymentHackData {
         this.total = total;
     }
 
+    public String getComarca() {
+        return comarca;
+    }
+
+    public void setComarca(String comarca) {
+        this.comarca = comarca;
+    }
 }
 
 

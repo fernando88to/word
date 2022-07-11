@@ -4,8 +4,8 @@ import com.deepoove.poi.data.PictureRenderData;
 
 public class Goods {
     private int count;
-    private String name;
-    private String desc;
+    private String nome;
+    private String funcao;
     private int discount;
     private int tax;
     private int price;
@@ -21,20 +21,20 @@ public class Goods {
         this.count = count;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getFuncao() {
+        return funcao;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
     }
 
     public int getDiscount() {
