@@ -19,8 +19,9 @@ dependencies {
     compileOnly("io.micronaut:micronaut-http-validation")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
-    implementation 'org.apache.poi:poi-ooxml:5.2.2'
-
+    //implementation 'org.apache.poi:poi-ooxml:5.2.2'
+    //https://github.com/Sayi/poi-tl
+    implementation 'com.deepoove:poi-tl:1.12.0'
 }
 
 
