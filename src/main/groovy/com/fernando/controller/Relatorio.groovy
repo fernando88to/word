@@ -8,6 +8,7 @@ import com.deepoove.poi.data.TableRenderData
 import com.deepoove.poi.data.Tables
 import com.deepoove.poi.data.style.BorderStyle
 import com.deepoove.poi.plugin.table.LoopRowTableRenderPolicy
+import com.fernando.domain.EquipeCorrecao
 import com.fernando.domain.Goods
 import com.fernando.domain.Labor
 import com.fernando.domain.PaymentHackData
@@ -107,8 +108,11 @@ class Relatorio {
     String index2() {
         LoopRowTableRenderPolicy hackLoopTableRenderPolicy = new LoopRowTableRenderPolicy();
         LoopRowTableRenderPolicy hackLoopSameLineTableRenderPolicy = new LoopRowTableRenderPolicy(true);
-        Configure config = Configure.builder().bind("goods", hackLoopTableRenderPolicy)
-                .bind("labors", hackLoopTableRenderPolicy).bind("goods2", hackLoopSameLineTableRenderPolicy)
+        Configure config = Configure.builder()
+                .bind("goods", hackLoopTableRenderPolicy)
+                .bind("equipe", hackLoopTableRenderPolicy)
+                .bind("labors", hackLoopTableRenderPolicy)
+                .bind("goods2", hackLoopSameLineTableRenderPolicy)
                 .bind("labors2", hackLoopSameLineTableRenderPolicy).build();
         XWPFTemplate template = XWPFTemplate.compile("render_hackloop.docx", config).render(getData());
         template.writeToFile("out_render_looprow.docx");
@@ -119,6 +123,14 @@ class Relatorio {
     private PaymentHackData getData(){
         PaymentHackData data = new PaymentHackData();
         data.comarca = "WANDERLÂNDIA"
+        data.cidade = "DARCINOPOLIS"
+        data.nomeCartorio = "ÚNICO SERVIÇO NOTARIAL E REGISTRAL COM ATRIBUIÇÕES ESPECIALIZADAS DE TABELIONATO DE NOTAS, TABELIONADO DE PROTESTO DE TÍTULOS, REGISTRO DE IMÓVEIS, REGISTRO DE TÍTULOS E DOCUMENTOS, REGISTRO CIVIL DAS PESSOAS JURÍDICAS, E REGISTRO CIVIL DAS PESSOAS NATURAIS E DE INTERDIÇÃO E TUTELAS"
+        data.atoNomeacao = 'Diário 229 Número 302 publicado em 04/04/1994'
+        data.dataNomeacao = '04/04/1994'
+        data.corregedor = ''
+        data.dataCorreicao = '05/07/2022'
+
+
         List<Goods> goods = new ArrayList<>();
         Goods good = new Goods();
         good.setCount(4);
@@ -148,9 +160,17 @@ class Relatorio {
 
         data.setTotal("1024");
 
-        // same line
+
         data.setGoods2(goods);
         data.setLabors2(labors);
+        List<EquipeCorrecao> equipe = []
+        equipe.add(new EquipeCorrecao(nome:'Wagner José dos Santos',funcao:'Coordenador dos Serviços Notariais e de Registro'))
+        equipe.add(new EquipeCorrecao(nome:'Carla Rejany Pimenta de Andrade',funcao:'Assessor(a) Jurídico(a) de 1ª Instância'))
+        equipe.add(new EquipeCorrecao(nome:'ETELVINA MARIA SAMPAIO FELIPE',funcao:'Corregedora-Geral da Justiça'))
+        equipe.add(new EquipeCorrecao(nome:'Joyce Coelho Nogueira',funcao:'Assessora Correcional da Corregedoria-Geral da Justiça'))
+        equipe.add(new EquipeCorrecao(nome:'Ludiana Costa',funcao:'Assessora Correcional da Corregedoria-Geral da Justiça'))
+
+        data.setEquipe(equipe)
         return  data
 
     }
