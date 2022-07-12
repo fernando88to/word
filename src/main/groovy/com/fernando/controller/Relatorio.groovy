@@ -2,6 +2,8 @@ package com.fernando.controller
 
 import com.deepoove.poi.XWPFTemplate
 import com.deepoove.poi.config.Configure
+import com.deepoove.poi.data.PictureRenderData
+import com.deepoove.poi.data.PictureType
 import com.deepoove.poi.data.Pictures
 import com.deepoove.poi.plugin.table.LoopRowTableRenderPolicy
 import com.fernando.domain.EquipeCorreicao
@@ -127,7 +129,10 @@ class Relatorio {
         def item2 = new GrupoItem(numero:2, texto:'Tabela de Custas e Emolumentos', valor:'', grupoObservacaos:[])
         def item3 = new GrupoItem(numero:2, texto:'GISE - Comunica não lidos 24h após o recebimento (6 meses)', valor:'53', grupoObservacaos:[])
 
-        item1.grupoObservacaos.add(new GrupoObservacao(texto:'A matrículo do imóvel n. 3000', tipo:'Determinação'))
+
+        def imagem = Pictures.ofBase64(base64Imagem(), PictureType.JPEG).size(300, 300).create()
+        //def imagem = Pictures.ofBase64(base64Imagem(), PictureType.JPEG).fitSize().create()
+        item1.grupoObservacaos.add(new GrupoObservacao(texto:'A matrículo do imóvel n. 3000', tipo:'Determinação', imagem:imagem))
 
         grupoDeclaracaoDados.grupoItens.add(item1)
         grupoDeclaracaoDados.grupoItens.add(item2)
