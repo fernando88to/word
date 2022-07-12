@@ -25,6 +25,7 @@ class PaymentHackData {
 
 
     List<EquipeCorreicao> equipe
+    List<Grupos> grupos
 
     
 }

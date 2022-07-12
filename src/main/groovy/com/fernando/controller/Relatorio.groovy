@@ -2,14 +2,13 @@ package com.fernando.controller
 
 import com.deepoove.poi.XWPFTemplate
 import com.deepoove.poi.config.Configure
-import com.deepoove.poi.data.PictureType
 import com.deepoove.poi.data.Pictures
-import com.deepoove.poi.data.TableRenderData
-import com.deepoove.poi.data.Tables
-import com.deepoove.poi.data.style.BorderStyle
 import com.deepoove.poi.plugin.table.LoopRowTableRenderPolicy
 import com.fernando.domain.EquipeCorreicao
 import com.fernando.domain.Goods
+import com.fernando.domain.GrupoItem
+import com.fernando.domain.GrupoObservacao
+import com.fernando.domain.Grupos
 import com.fernando.domain.Labor
 import com.fernando.domain.PaymentHackData
 import groovy.transform.CompileStatic
@@ -56,11 +55,16 @@ class Relatorio {
         Configure config = Configure.builder()
                 .bind("goods", hackLoopTableRenderPolicy)
                 .bind("equipe", hackLoopTableRenderPolicy)
+                .bind("grupoItens", hackLoopTableRenderPolicy)
+                //.bind("grupos", hackLoopTableRenderPolicy)
                 .bind("labors", hackLoopTableRenderPolicy)
                 .bind("goods2", hackLoopSameLineTableRenderPolicy)
                 .bind("labors2", hackLoopSameLineTableRenderPolicy).build();
         XWPFTemplate template = XWPFTemplate.compile("render_hackloop.docx", config).render(getData());
         template.writeToFile("out_render_looprow.docx");
+
+        //PdfOptions options = PdfOptions.create()
+        //PdfConverter.getInstance().convert(template.getXWPFDocument(), new FileOutputStream("termo_correicao.pdf"), options)
         return "oi2";
 
     }
@@ -115,6 +119,25 @@ class Relatorio {
         equipe.add(new EquipeCorreicao(nome:'Joyce Coelho Nogueira',funcao:'Assessora Correcional da Corregedoria-Geral da Justiça'))
         equipe.add(new EquipeCorreicao(nome:'Ludiana Costa',funcao:'Assessora Correcional da Corregedoria-Geral da Justiça'))
 
+        List<Grupos> grupos  = []
+
+        def grupoDeclaracaoDados = new Grupos(nome:'Declaração de Dados', grupoItens:[])
+
+        def item1 = new GrupoItem(numero:1, texto:'Alimentação do Sistema Justiça Aberta', valor:'Irregular', grupoObservacaos:[])
+        def item2 = new GrupoItem(numero:2, texto:'Tabela de Custas e Emolumentos', valor:'', grupoObservacaos:[])
+        def item3 = new GrupoItem(numero:2, texto:'GISE - Comunica não lidos 24h após o recebimento (6 meses)', valor:'53', grupoObservacaos:[])
+
+        item1.grupoObservacaos.add(new GrupoObservacao(texto:'A matrículo do imóvel n. 3000', tipo:'Determinação'))
+
+        grupoDeclaracaoDados.grupoItens.add(item1)
+        grupoDeclaracaoDados.grupoItens.add(item2)
+        grupoDeclaracaoDados.grupoItens.add(item3)
+
+
+        grupos.add(grupoDeclaracaoDados)
+        //grupos.add(new Grupos(nome:'Tributos (Débitos)'))
+        //grupos.add(new Grupos(nome:'Metas e Provimentos da Corregedoria Nacional de Justiça'))
+        data.setGrupos(grupos)
         data.setEquipe(equipe)
         return  data
 
